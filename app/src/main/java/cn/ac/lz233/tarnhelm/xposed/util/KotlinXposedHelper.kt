@@ -417,9 +417,3 @@ inline fun XResources.hookLayout(pkg: String, type: String, name: String, crossi
         LogUtil.xpe(e)
     }
 }
-
-fun getHookField(clazz: Class<*>, name: String): Any? {
-    val field: Field = clazz.getDeclaredField(name)
-    field.isAccessible = true
-    return field.get(clazz)
-}

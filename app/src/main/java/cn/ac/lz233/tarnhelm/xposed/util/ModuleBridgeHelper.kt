@@ -15,8 +15,9 @@ import cn.ac.lz233.tarnhelm.xposed.module.Android
 @SuppressLint("StaticFieldLeak")
 object ModuleBridgeHelper {
 
-    private var bridge: ModuleDataBridge? = null
-    var isBridgeAvailable = false
+    @Volatile private var bridge: ModuleDataBridge? = null
+    @Volatile var isBridgeAvailable = false
+    @Volatile private var isBound = false
     var mContext: Context? = null
 
     private val serviceConnection = object : ServiceConnection {
@@ -64,9 +65,10 @@ object ModuleBridgeHelper {
 
     @SuppressLint("MissingPermission")
     fun bindBridgeService(context: Context? = mContext) {
+        if (isBound) return
         LogUtil.xp("bind bridge service")
         runCatching {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 context?.bindServiceAsUser(
                     bridgeIntent(),
                     serviceConnection,
@@ -80,14 +82,18 @@ object ModuleBridgeHelper {
                     Context.BIND_AUTO_CREATE
                 )
             }
+            isBound = result != null
+            if (result == false) unbindBridgeService(context)
         }.onFailure { LogUtil.xpe(it) }
     }
 
     fun unbindBridgeService(context: Context? = mContext) {
+        if (!isBound) return
         LogUtil.xp("unbind bridge service")
         runCatching {
             context?.unbindService(serviceConnection)
         }
+        isBound = false
     }
 
     fun doTarnhelms(string: String): String {
