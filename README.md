@@ -1,20 +1,24 @@
-![](./art/animation.webp)
+# Tarnhelm-R
 
-<p align="center">
-<a href="https://play.google.com/store/apps/details?id=cn.ac.lz233.tarnhelm">
-<img src="./art/google-play-badge.png" width="25%"/>
-</a>
-<a href="https://f-droid.org/packages/cn.ac.lz233.tarnhelm/">
-<img src="./art/fdroid-badge.png" width="25%"/>
-</a>
-</p>
+这是 [Tarnhelm](https://github.com/lz233/Tarnhelm) 的个人 Fork，主要进行项目维护、兼容性改进及问题修复。
 
-更多信息，参见：[tarnhelm.project.ac.cn](https://tarnhelm.project.ac.cn/)
+## 更新内容
 
-从 Play Store 获取：https://play.google.com/store/apps/details?id=cn.ac.lz233.tarnhelm
+- **兼容性修复**
+  - 修复小米 HyperOS 4（Android 17）环境下 Bridge Service 绑定异常的问题，避免 LSPosed 日志出现错误，并恢复模块正常使用。
+  - 优化服务绑定、解绑及异常重连逻辑。
 
-从 F-Droid 获取：https://f-droid.org/packages/cn.ac.lz233.tarnhelm
+- **构建系统调整**
+  - 将项目构建脚本迁移至 Kotlin DSL，并使用 Version Catalog 统一管理依赖。
+  - 更新 Android Gradle Plugin、Gradle、Kotlin 及相关依赖。
+  - 将 `compileSdk` 和 `targetSdk` 升级至 37。
+  - 将 Java 工具链及 Gradle Daemon JVM 迁移至 Java 21。
 
-从 LSPosed Repository 获取：https://github.com/Xposed-Modules-Repo/cn.ac.lz233.tarnhelm
+- **代码优化**
+  - 替换过时的 Android API。
+  - 清理未使用的代码及依赖。
+  - 优化部分代码结构和构建配置。
 
-[![Star History Chart](https://star-history.dera.page/svg?repos=lz233/Tarnhelm&type=Date)](https://star-history.dera.page/#lz233/Tarnhelm&Date)
+## 上游项目
+
+- 原项目：[lz233/Tarnhelm](https://github.com/lz233/Tarnhelm)
