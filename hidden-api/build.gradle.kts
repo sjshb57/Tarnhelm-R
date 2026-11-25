@@ -9,7 +9,6 @@ plugins {
 android {
     namespace = "cn.ac.lz233.tarnhelm.hidden_api"
     compileSdk {
-        // API 37 is published as minor API level 2 (platforms;android-37.2).
         version = release(37) {
             minorApiLevel = 2
         }
