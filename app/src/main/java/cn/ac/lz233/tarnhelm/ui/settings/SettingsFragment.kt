@@ -210,15 +210,9 @@ class SettingsFragment() : PreferenceFragmentCompat() {
         App.context.stopService(Intent(App.context, ClipboardService::class.java))
     }
 
-    private fun checkClipboardPrivilege(request: Boolean = false): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        checkShizukuPermission(request)
-    } else {
-        true
-    }
+    private fun checkClipboardPrivilege(request: Boolean = false): Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || checkShizukuPermission(request)
 
-    private fun checkShizukuPermission(request: Boolean = false): Boolean = if (!Shizuku.pingBinder()) {
-        false
-    } else if (Shizuku.isPreV11()) {
+    private fun checkShizukuPermission(request: Boolean = false): Boolean = Shizuku.pingBinder() && if (Shizuku.isPreV11()) {
         false
     } else if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
         true

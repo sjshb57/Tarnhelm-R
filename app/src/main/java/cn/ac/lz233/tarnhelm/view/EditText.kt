@@ -9,10 +9,6 @@ class EditText @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private var canTouch = true
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return if (canTouch) {
-            super.onTouchEvent(event)
-        } else {
-            true
-        }
+        return !canTouch || super.onTouchEvent(event)
     }
 }
